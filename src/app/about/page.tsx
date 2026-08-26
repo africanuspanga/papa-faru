@@ -6,24 +6,11 @@ export const metadata: Metadata = {
   description: "Papa Faru Bureau de Change, your trusted exchange partner in Dar es Salaam.",
 };
 
-const VALUES = [
-  {
-    title: "Competitive Rates",
-    body: "We work to give you the best value for your money on every exchange.",
-  },
-  {
-    title: "Fast & Secure",
-    body: "Quick, safe transactions handled by a professional team you can trust.",
-  },
-  {
-    title: "Reliable Service",
-    body: "Consistent, honest service. We value every customer who walks through our door.",
-  },
-];
+const VALUES = ["Competitive rates", "Fast & secure transactions", "Reliable, honest service"];
 
 export default function AboutPage() {
   return (
-    <div className="pb-20 pt-32 lg:pb-28 lg:pt-36">
+    <div className="pb-20 pt-42 lg:pb-28 lg:pt-46">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <p className="eyebrow">About Us</p>
         <h1 className="mt-4 font-display text-4xl font-black tracking-tight text-foreground sm:text-5xl">
@@ -36,14 +23,14 @@ export default function AboutPage() {
           competitive rates.
         </p>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-3">
-          {VALUES.map((v) => (
-            <div key={v.title} className="card p-6">
-              <h3 className="font-display text-lg font-bold text-foreground">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{v.body}</p>
-            </div>
+        <ul className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-black/8 pt-6 text-sm font-medium text-foreground">
+          {VALUES.map((v, i) => (
+            <li key={v} className="flex items-center gap-5">
+              {i > 0 && <span className="h-4 w-px bg-black/12" aria-hidden="true" />}
+              {v}
+            </li>
           ))}
-        </div>
+        </ul>
 
         <div className="mt-12 rounded-2xl bg-ink p-8 text-white">
           <h2 className="font-display text-2xl font-bold">Visit Our Branch</h2>

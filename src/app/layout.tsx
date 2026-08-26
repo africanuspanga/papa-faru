@@ -5,7 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import RatesTicker from "@/components/RatesTicker";
 import { WHATSAPP_NUMBER } from "@/lib/format";
+import { getRates } from "@/lib/rates";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,7 +42,9 @@ const jsonLd = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const { rates } = await getRates();
+
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
@@ -49,6 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Navbar />
+        <RatesTicker rates={rates} />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton phone={WHATSAPP_NUMBER} />

@@ -12,7 +12,7 @@ export default async function RatesPage() {
   const { rates, transactionDate, source } = await getRates();
 
   return (
-    <div className="bg-surface pb-20 pt-32 lg:pb-28 lg:pt-36">
+    <div className="bg-surface pb-20 pt-42 lg:pb-28 lg:pt-46">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="eyebrow">Today&apos;s Rates</p>
         <h1 className="mt-4 font-display text-4xl font-black tracking-tight text-foreground sm:text-5xl">

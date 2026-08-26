@@ -1,42 +1,40 @@
 import Image from "next/image";
 
-const FEATURES = [
-  {
-    title: "Competitive Exchange Rates",
-    description: "Get the best value for your money, updated from Bank of Tanzania reference rates.",
-  },
-  {
-    title: "Fast & Secure Transactions",
-    description: "Quick, safe and reliable service every time you visit our branch.",
-  },
-  {
-    title: "Reliable Service You Can Count On",
-    description: "Professional support and honest dealing every step of the way.",
-  },
+const FACTS = [
+  "Bank of Tanzania–referenced rates",
+  "Fast, same-day service",
+  "Professional, licensed team",
 ];
 
 export default function WhyChoose() {
   return (
     <section className="bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-          <div>
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+          <div className="flex flex-col justify-center">
             <p className="eyebrow">Where Trust Meets Value</p>
-            <h2 className="mt-4 font-display text-4xl font-black tracking-tight text-foreground sm:text-5xl">
-              Why Choose Papa Faru
+            <h2 className="mt-4 font-display text-4xl font-black leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+              The bureau Dar es Salaam trusts for a fair exchange.
             </h2>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Every rate at Papa Faru is checked against Bank of Tanzania
+              references before it reaches the board, so there are no
+              surprises when you reach the counter. Our team at Mayfair Plaza
+              handles each transaction quickly and securely, whether
+              you&apos;re changing fifty dollars or five thousand.
+            </p>
 
-            <ul className="mt-10 flex flex-col gap-7">
-              {FEATURES.map((f) => (
-                <li key={f.title} className="border-l-2 border-red pl-5">
-                  <h3 className="font-display text-lg font-bold text-foreground">{f.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{f.description}</p>
+            <ul className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-black/8 pt-6 text-sm font-medium text-foreground">
+              {FACTS.map((fact, i) => (
+                <li key={fact} className="flex items-center gap-5">
+                  {i > 0 && <span className="h-4 w-px bg-black/12" aria-hidden="true" />}
+                  {fact}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="relative min-h-[320px] overflow-hidden rounded-2xl lg:min-h-full">
+          <div className="relative min-h-[360px] overflow-hidden rounded-2xl">
             <Image
               src="/photos/street-market.jpg"
               alt="A street in Dar es Salaam near Papa Faru Bureau de Change"
