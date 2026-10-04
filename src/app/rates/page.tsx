@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getRates } from "@/lib/rates";
+import RateBoard from "@/components/RateBoard";
 import ExchangeCalculator from "@/components/ExchangeCalculator";
-import RateCard from "@/components/home/RateCard";
 
 export const metadata: Metadata = {
   title: "Exchange Rates | Papa Faru Bureau de Change",
@@ -12,33 +12,34 @@ export default async function RatesPage() {
   const { rates, transactionDate, source } = await getRates();
 
   return (
-    <div className="bg-surface pb-20 pt-42 lg:pb-28 lg:pt-46">
+    <div className="pb-20 pt-42 lg:pb-28 lg:pt-46">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="eyebrow">Today&apos;s Rates</p>
-        <h1 className="mt-4 font-display text-4xl font-black tracking-tight text-foreground sm:text-5xl">
-          Foreign Exchange Rates
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-          Indicative rates for major currencies, derived from Bank of Tanzania reference
-          rates. Final rates are confirmed at our Mayfair Plaza branch.
-        </p>
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <p className="eyebrow">Today&apos;s board</p>
+            <h1 className="font-display mt-6 text-4xl leading-[1.05] text-ink sm:text-6xl">
+              Exchange rates
+            </h1>
+          </div>
+          <p className="max-w-md text-lg leading-relaxed text-muted lg:col-span-5 lg:pb-2">
+            &ldquo;We buy&rdquo; is what we pay for your foreign currency. &ldquo;We
+            sell&rdquo; is what you pay us for it. Both in Tanzanian shillings.
+          </p>
+        </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:items-start">
-          <ExchangeCalculator rates={rates} />
+        <div className="mt-12">
+          <RateBoard rates={rates} transactionDate={transactionDate} source={source} />
+        </div>
 
-          <div>
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {rates.map((rate) => (
-                <RateCard key={rate.currency.code} rate={rate} />
-              ))}
-            </div>
-
-            <p className="mt-6 text-xs leading-relaxed text-muted">
-              Rates are indicative and subject to change with market conditions.
-              {source === "bot" && transactionDate
-                ? ` BoT reference date: ${transactionDate}.`
-                : " Showing recent indicative rates. Live BoT feed temporarily unavailable."}
+        <div className="mt-16 grid gap-8 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-4">
+            <h2 className="font-display text-3xl leading-tight text-ink">Work out an amount</h2>
+            <p className="mt-3 text-muted">
+              Uses the rates on the board above. The counter confirms the final figure.
             </p>
+          </div>
+          <div className="lg:col-span-8">
+            <ExchangeCalculator rates={rates} />
           </div>
         </div>
       </div>

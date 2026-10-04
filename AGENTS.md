@@ -36,50 +36,28 @@ npm run start
 ## Brand
 
 Black `#0a0a0a` / white / red `#d41a22` (`red-dark` `#a8121a`, `red-soft` `#fdeceb`).
-Fonts: Poppins (`font-display`, headings) + Inter (`font-sans`, body). Real logo/favicon
+Fonts: Bevan (`font-display`, single weight, headlines only) + Hanken Grotesk (`font-sans`) + IBM Plex Mono (`font-mono`, board digits/phone). Real logo/favicon
 assets in `public/logo.png` and `src/app/icon.png` (from `public/Papa Faru Logo.png` /
 `Papa Faru Favicon.png` — keep those two originals, don't delete).
 
-## Session handover — 2026-08-26
+## Session handover — 2026-10-04 (design round 3)
 
-Full redesign pass to fix agency feedback ("cards look AI-generated"). Design system,
-rationale, and what to watch for next time this feedback recurs is written up in full
-in the Claude memory system under `feedback-ai-slop-design-system` (not in this repo) —
-worth reading before making further visual changes here.
+Agency feedback round 3: "all three still look too AI-generic". Root cause: the three
+sites were one template with different colours (same photo hero + calculator card, same
+rate-card grid, same eyebrow labels, same gradient CTA box). Each site was rebuilt around
+its own signature device taken from a real bureau. **Keep the three distinct: don't
+port a component's shape from one sibling site to another.** Full rationale is in the
+Claude memory `feedback-forex-sites-sameness`.
 
-Short version of what changed:
-- Reusable component classes added to `globals.css`: `.btn` / `.btn-primary` /
-  `.btn-outline` / `.btn-dark` / `.btn-white` / `.btn-ghost-light` (12px radius, never
-  pill), `.card` (whisper shadow, no colored glow), `.eyebrow` (quiet kicker label,
-  replaces pill badges), `.badge` (small rect status badges). Reuse these instead of
-  inlining new pill/glow Tailwind classes.
-- Hero background is a real photo (`public/photos/hero-citylights.jpg`) + `.hero-scrim`
-  gradient, not an abstract radial-gradient mesh.
-- `WhyChoose` and the About-page values section were rewritten twice: round 1 dropped
-  icon-box cards for a `border-l-2` accent list, but that *still* read as "AI card grid"
-  in agency review. Round 2 fix: no boxes/grids at all — one flowing editorial paragraph
-  + a single-row fact strip with hairline (`h-4 w-px bg-black/12`) dividers between
-  short phrases. If "still looks AI" feedback recurs, suspect this shape (N visually
-  equal blocks) before suspecting styling.
-- Added `src/components/RatesTicker.tsx`: a fixed, auto-scrolling rates strip under the
-  navbar (`.ticker-*` classes in `globals.css`), wired by making `layout.tsx` an async
-  Server Component that calls `getRates()`. Its divided-strip look deliberately echoes
-  the WhyChoose fact strip.
-- Navbar switched from dark to white background (the real logo is black-on-transparent
-  and needs a light surface) with a bottom hairline border and underline active-state,
-  no pill nav links.
-- Adding the ticker pushed every page's top padding down by 40px — Hero uses `pt-30`,
-  About/Contact/Rates use `pt-42 lg:pt-46`. If you touch header height (navbar or
-  ticker), these need to move together; Tailwind v4's spacing scale accepts any integer
-  step so arbitrary numbers like `pt-42` are valid, not typos.
-- This was a plain folder with no git history until today — repo was `git init`'d fresh
-  and pushed to https://github.com/africanuspanga/papa-faru. Two commits total so far.
-- Dar es Salaam stock photography for hero/section imagery lives in
-  `/Users/admin/Downloads/Dar-City-Images` — several unused images remain there for
-  future sections (check before asking the user for new photos).
-
-**Not done / possible next steps:** only Hero + WhyChoose + About values got the full
-editorial treatment; RateCard/VisitCta/ExchangeCalculator got lighter button/shadow
-fixes only. No automated tests exist. Verified via `curl` + dev-server logs only this
-session — no browser screenshot verification was done (Chrome extension wasn't
-connected); worth an actual visual pass next session.
+**Papa Faru signature: the shop-window split-flap rate board.**
+- `src/components/RateBoard.tsx` — one flap tile per character, CSS flip-in on load
+  (`.flap*` in `globals.css`, disabled under reduced motion). Used in the hero (6 majors)
+  and on `/rates` (all currencies).
+- Home = Hero + board → `FaruStory` ("faru = rhino" dictionary entry, rhino mark from the
+  logo in `public/rhino-mark.png` / `rhino-mark-white.png`) → `CounterSection` (red band,
+  dark "counter display" calculator) → `VisitSection` (also the whole `/contact` page).
+- Buttons are squared (3px) with 2px borders; eyebrow = red caps after a short bar.
+- Removed: WhyChoose, VisitCta, RatesSection, RateCard, emoji flags.
+- Rates ≥10 used to round to whole shillings (KES showed 20/21). Now <100 → 2 decimals.
+- Fallback BoT means in `lib/currencies.ts` refreshed to 4 Oct 2026; live BoT fetch
+  confirmed working that day (transaction date 04-Oct-26).

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Bevan, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,15 +9,21 @@ import RatesTicker from "@/components/RatesTicker";
 import { WHATSAPP_NUMBER } from "@/lib/format";
 import { getRates } from "@/lib/rates";
 
-const inter = Inter({
-  variable: "--font-inter",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const bevan = Bevan({
+  variable: "--font-bevan",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
+  weight: "400",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -46,7 +52,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const { rates } = await getRates();
 
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased`}>
+    <html lang="en" className={`${hanken.variable} ${bevan.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script
           type="application/ld+json"

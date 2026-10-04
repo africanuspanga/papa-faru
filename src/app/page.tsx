@@ -1,18 +1,18 @@
 import { getRates } from "@/lib/rates";
 import Hero from "@/components/home/Hero";
-import RatesSection from "@/components/home/RatesSection";
-import WhyChoose from "@/components/home/WhyChoose";
-import VisitCta from "@/components/home/VisitCta";
+import FaruStory from "@/components/home/FaruStory";
+import CounterSection from "@/components/home/CounterSection";
+import VisitSection from "@/components/home/VisitSection";
 
 export default async function Home() {
   const ratesResult = await getRates();
 
   return (
     <>
-      <Hero rates={ratesResult.rates} />
-      <RatesSection {...ratesResult} />
-      <WhyChoose />
-      <VisitCta />
+      <Hero {...ratesResult} />
+      <FaruStory />
+      <CounterSection rates={ratesResult.rates} />
+      <VisitSection />
     </>
   );
 }

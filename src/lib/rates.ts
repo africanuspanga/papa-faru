@@ -15,7 +15,7 @@ export interface RatesResult {
 }
 
 function round(value: number): number {
-  return value < 10 ? Math.round(value * 100) / 100 : Math.round(value);
+  return value < 100 ? Math.round(value * 100) / 100 : Math.round(value);
 }
 
 function applyMargin(mean: number): { buyingRate: number; sellingRate: number } {

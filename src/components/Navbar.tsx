@@ -8,15 +8,17 @@ import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/format";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/rates", label: "Exchange Rates" },
+  { href: "/rates", label: "Rates" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  // The menu belongs to the page it was opened on, so navigating closes it.
+  const [openOn, setOpenOn] = useState<string | null>(null);
+  const open = openOn === pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -24,10 +26,6 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   return (
     <header
@@ -52,7 +50,7 @@ export default function Navbar() {
                   }`}
                 >
                   {link.label}
-                  {active && <span className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-red" />}
+                  {active && <span className="absolute inset-x-0 -bottom-[1px] h-[3px] bg-red" />}
                 </Link>
               </li>
             );
@@ -60,19 +58,19 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <a href={`tel:${PHONE_TEL}`} className="text-sm font-semibold text-ink/70 transition-colors hover:text-ink">
+          <a href={`tel:${PHONE_TEL}`} className="tabular font-mono text-sm font-semibold text-ink/70 transition-colors hover:text-ink">
             {PHONE_DISPLAY}
           </a>
-          <Link href="/contact" className="btn btn-primary">
-            Visit Us
+          <Link href="/contact" className="btn btn-dark py-2.5">
+            Find us
           </Link>
         </div>
 
         <button
           type="button"
           className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-ink lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle navigation"
+          onClick={() => setOpenOn(open ? null : pathname)}
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-6 w-6">
@@ -92,8 +90,8 @@ export default function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`block rounded-lg px-4 py-3 text-sm font-medium ${
-                    pathname === link.href ? "bg-red-soft text-red" : "text-ink/70 hover:bg-surface"
+                  className={`block border-l-[3px] px-4 py-3 text-base font-semibold ${
+                    pathname === link.href ? "border-red text-ink" : "border-transparent text-ink/60 hover:text-ink"
                   }`}
                 >
                   {link.label}
