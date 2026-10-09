@@ -38,23 +38,23 @@ export default function RateBoard({ rates, transactionDate, source }: RateBoardP
   return (
     <div className="board overflow-hidden">
       <div className="flex items-center justify-between gap-4 border-b border-white/8 px-4 py-3 sm:px-6">
-        <p className="board-label">Papa Faru<span className="hidden sm:inline"> · Mayfair Plaza</span></p>
+        <p className="board-label whitespace-nowrap">Papa Faru<span className="hidden sm:inline"> · Mayfair Plaza</span></p>
         <p className="board-label flex items-center gap-2 whitespace-nowrap">
           <span className="h-1.5 w-1.5 rounded-full bg-red" aria-hidden="true" />
           {dateLabel}
         </p>
       </div>
 
-      <table className="w-full border-collapse [--flap-size:0.95rem] sm:[--flap-size:1.3rem] lg:[--flap-size:1.55rem]">
+      <table className="w-full border-collapse [--flap-size:0.85rem] min-[360px]:[--flap-size:0.95rem] sm:[--flap-size:1.3rem] lg:[--flap-size:1.55rem]">
         <caption className="sr-only">
           Papa Faru buying and selling rates in Tanzanian shillings. {dateLabel}.
         </caption>
         <thead>
           <tr className="text-left">
-            <th scope="col" className="board-label px-4 pb-2 pt-4 font-medium sm:px-6">Currency</th>
+            <th scope="col" className="board-label pb-2 pl-3 pr-1 pt-4 font-medium sm:px-6">Currency</th>
             <th scope="col" className="hidden w-full md:table-cell" />
-            <th scope="col" className="board-label pb-2 pl-4 pr-6 pt-4 text-right font-medium sm:pr-12">We buy</th>
-            <th scope="col" className="board-label px-4 pb-2 pt-4 text-right font-medium sm:px-6">We sell</th>
+            <th scope="col" className="board-label pb-2 pl-2 pr-3 pt-4 text-right font-medium sm:pl-4 sm:pr-12">We buy</th>
+            <th scope="col" className="board-label pb-2 pl-2 pr-3 pt-4 text-right font-medium sm:px-6">We sell</th>
           </tr>
         </thead>
         <tbody>
@@ -64,16 +64,16 @@ export default function RateBoard({ rates, transactionDate, source }: RateBoardP
             const base = row * 6;
             return (
               <tr key={rate.currency.code} className="border-t border-white/[0.05]">
-                <th scope="row" className="px-4 py-2 text-left sm:px-6 sm:py-2.5">
+                <th scope="row" className="py-2 pl-3 pr-1 text-left sm:px-6 sm:py-2.5">
                   <Flaps text={rate.currency.code} start={base} code />
                   <span className="sr-only">{rate.currency.name}</span>
                 </th>
                 <td className="hidden w-full py-2 pl-2 text-sm text-flap-text/55 md:table-cell">{rate.currency.name}</td>
-                <td className="py-2 pl-4 pr-6 text-right sm:py-2.5 sm:pr-12">
+                <td className="py-2 pl-2 pr-3 text-right sm:py-2.5 sm:pl-4 sm:pr-12">
                   <Flaps text={buy} start={base + 3} />
                   <span className="sr-only">Buy {buy}</span>
                 </td>
-                <td className="px-4 py-2 text-right sm:px-6 sm:py-2.5">
+                <td className="py-2 pl-2 pr-3 text-right sm:px-6 sm:py-2.5">
                   <Flaps text={sell} start={base + 4} />
                   <span className="sr-only">Sell {sell}</span>
                 </td>

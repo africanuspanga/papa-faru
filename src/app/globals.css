@@ -302,7 +302,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: #1a1a1a;
   padding: 12px 14px;
-  font-size: 0.9375rem;
+  /* 16px minimum stops iOS Safari zooming in when a field is focused. */
+  font-size: 1rem;
   color: #ffffff;
   outline: none;
   transition: border-color 0.15s ease;
